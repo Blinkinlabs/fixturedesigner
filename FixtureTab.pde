@@ -9,10 +9,10 @@ void setupFixtureTab() {
   cp5.addTab("Fixtures")
    .setActive(true)
    .activateEvent(true)
-   .setId(1)
+   .setId(FIXTURES_TAB)
    ;
    
-  int yOffset = 50;
+  int yOffset = 30;
    
   cp5.addButton("loadFixtures")
      .setBroadcast(false)
@@ -33,8 +33,17 @@ void setupFixtureTab() {
      .getCaptionLabel().align(CENTER,CENTER)
      ;
   cp5.getController("saveFixtures").moveTo("Fixtures");
+  
+  yOffset += 30;
+  cp5.addTextfield("fixtureFilename")
+     .setPosition(tabOffset,yOffset)
+     .setSize(170,20)
+     .setAutoClear(false)
+     .setValue("fixtures")
+     ;
+  cp5.getController("fixtureFilename").moveTo("Fixtures");
    
-  yOffset += 40;
+  yOffset += 50;
   cp5.addButton("newLed")
      .setBroadcast(false)
      .setPosition(tabOffset,yOffset)
@@ -45,10 +54,9 @@ void setupFixtureTab() {
      ;
   cp5.getController("newLed").moveTo("Fixtures");
   
-  yOffset += 40;
   cp5.addButton("newLedStrip")
      .setBroadcast(false)
-     .setPosition(tabOffset,yOffset)
+     .setPosition(tabOffset + 90, yOffset)
      .setSize(80,20)
      .setValue(1)
      .setBroadcast(true)
@@ -93,12 +101,12 @@ void setupFixtureTab() {
 void selectFixture(Fixture fixture) {
   if(fixture instanceof Led) {
     Led led = (Led)fixture;
-    cp5.getController("fixtureRow").setValue(led.m_offset);
+    cp5.getController("fixtureRow").setValue(led.m_row);
     cp5.getController("fixtureOffset").setValue(led.m_offset);
   }
   else if(fixture instanceof LedStrip) {
     LedStrip led = (LedStrip)fixture;
-    cp5.getController("fixtureRow").setValue(led.m_offset);
+    cp5.getController("fixtureRow").setValue(led.m_row);
     cp5.getController("fixtureOffset").setValue(led.m_offset);
     cp5.getController("fixtureLength").setValue(led.m_length);
   }
@@ -124,12 +132,15 @@ public void deleteFixture(int theValue) {
   }
 }
 
-public void loadFixtures(int theValue) { 
-  g_fixtures = loadFixturesFromJson("save.json");
+public void loadFixtures(int theValue) {
+  String filename = cp5.get(Textfield.class,"fixtureFilename").getText() + ".json";
+  g_fixtures = loadFixturesFromJson(filename);
 }
 
-public void saveFixtures(int theValue) { 
-  saveFixturesToJson("save.json", g_fixtures);
+public void saveFixtures(int theValue) {
+  String filename = cp5.get(Textfield.class,"fixtureFilename").getText() + ".json";
+  println(filename);
+  saveFixturesToJson(filename, g_fixtures);
 }
 
 void fixtureRow(int row) {

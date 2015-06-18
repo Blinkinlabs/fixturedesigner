@@ -28,7 +28,6 @@ List<Fixture> loadFixturesFromJson(String fileName) {
     JSONObject fixture = entries.getJSONObject(i); 
 
     String type = fixture.getString("type");
-    println(type);
     
     if(type.equals("led")) {
       float x = fixture.getFloat("x");
@@ -137,6 +136,10 @@ class Led extends Fixture {
     ellipse(m_x, m_y, m_d, m_d);
   }
   
+  void render(PGraphics frame) {
+    frame.pixels[m_row*frame.width + m_offset] = pixels[int(m_y)*width+int(m_x)];
+  }
+  
   boolean isMouseOver() {
     return mouseCollideCircle(m_x, m_y, m_d);
   }
@@ -200,6 +203,15 @@ class LedStrip extends Fixture {
       noFill();
     }
     ellipse(m_x2, m_y2, m_d, m_d);
+  }
+  
+  void render(PGraphics frame) {
+    for (int i = 0; i < m_length; i++) {
+      float x = m_x1 - (m_x1 - m_x2)/m_length*i;
+      float y = m_y1 - (m_y1 - m_y2)/m_length*i;
+
+      frame.pixels[m_row*frame.width + m_offset + i] = pixels[int(y)*width+int(x)];
+    }
   }
   
   boolean isMouseOver() {
