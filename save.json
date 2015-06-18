@@ -1,0 +1,156 @@
+[
+  {
+    "offset": 10,
+    "type": "led",
+    "row": 0,
+    "y": 10,
+    "x": 10
+  },
+  {
+    "length": 60,
+    "y1": 50,
+    "y2": 242,
+    "offset": 10,
+    "x2": 95,
+    "type": "ledStrip",
+    "row": 0,
+    "x1": 30
+  },
+  {
+    "length": 60,
+    "y1": 51,
+    "y2": 243,
+    "offset": 10,
+    "x2": 95,
+    "type": "ledStrip",
+    "row": 0,
+    "x1": 146
+  },
+  {
+    "offset": 0,
+    "type": "led",
+    "row": 0,
+    "y": 12,
+    "x": 31
+  },
+  {
+    "length": 60,
+    "y1": 52,
+    "y2": 53,
+    "offset": 0,
+    "x2": 148,
+    "type": "ledStrip",
+    "row": 0,
+    "x1": 31
+  },
+  {
+    "length": 60,
+    "y1": 57,
+    "y2": 55,
+    "offset": 0,
+    "x2": 150,
+    "type": "ledStrip",
+    "row": 0,
+    "x1": 259
+  },
+  {
+    "length": 60,
+    "y1": 232,
+    "y2": 57,
+    "offset": 0,
+    "x2": 261,
+    "type": "ledStrip",
+    "row": 0,
+    "x1": 247
+  },
+  {
+    "length": 60,
+    "y1": 243,
+    "y2": 230,
+    "offset": 0,
+    "x2": 244,
+    "type": "ledStrip",
+    "row": 0,
+    "x1": 94
+  },
+  {
+    "length": 60,
+    "y1": 241,
+    "y2": 385,
+    "offset": 0,
+    "x2": 47,
+    "type": "ledStrip",
+    "row": 0,
+    "x1": 95
+  },
+  {
+    "length": 60,
+    "y1": 339,
+    "y2": 241,
+    "offset": 0,
+    "x2": 96,
+    "type": "ledStrip",
+    "row": 0,
+    "x1": 216
+  },
+  {
+    "length": 60,
+    "y1": 384,
+    "y2": 338,
+    "offset": 0,
+    "x2": 218,
+    "type": "ledStrip",
+    "row": 0,
+    "x1": 45
+  },
+  {
+    "length": 60,
+    "y1": 338,
+    "y2": 231,
+    "offset": 0,
+    "x2": 251,
+    "type": "ledStrip",
+    "row": 0,
+    "x1": 217
+  },
+  {
+    "length": 60,
+    "y1": 382,
+    "y2": 234,
+    "offset": 0,
+    "x2": 248,
+    "type": "ledStrip",
+    "row": 0,
+    "x1": 366
+  },
+  {
+    "length": 60,
+    "y1": 336,
+    "y2": 382,
+    "offset": 0,
+    "x2": 368,
+    "type": "ledStrip",
+    "row": 0,
+    "x1": 219
+  },
+  {
+    "length": 60,
+    "y1": 395,
+    "y2": 385,
+    "offset": 0,
+    "x2": 47,
+    "type": "ledStrip",
+    "row": 0,
+    "x1": 155
+  },
+  {
+    "length": 60,
+    "y1": 396,
+    "y2": 337,
+    "offset": 0,
+    "x2": 219,
+    "type": "ledStrip",
+    "row": 0,
+    "x1": 156
+  }
+]
