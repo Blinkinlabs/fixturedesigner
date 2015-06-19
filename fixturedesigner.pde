@@ -1,8 +1,19 @@
 import java.util.*;
 import controlP5.*;
 
+// This should be 127.0.0.1, 58802
+String transmit_address = "192.168.2.5";
+//String transmit_address = "127.0.0.1";
+int transmit_port       = 9999;
+
+LEDDisplay sign;
+
+Routine rgb;
+
 int LEDscape_rows = 32;
 int LEDscape_cols = 256;
+PGraphics drawBuffer;
+
 PGraphics outputFrame;
 
 ControlP5 cp5;
@@ -17,8 +28,15 @@ Fixture g_selectedFixture;
 boolean mouseDrag = false;
 
 void setup() {
-  size(1280, 800);
+  size(1000, 500);
   cp5 = new ControlP5(this);
+  
+  sign = new LEDDisplay(this, LEDscape_cols, LEDscape_rows, 2, true, transmit_address, transmit_port);
+       
+  //drawBuffer = createGraphics(1000, 500);
+  drawBuffer = createGraphics(70, 70);
+  rgb = new RGBRoutine();
+  rgb.reset();
        
   setupFixtureTab();
   
@@ -40,6 +58,20 @@ void draw() {
   if(g_selectedTab == PATTERNS_TAB) {
     ellipse(mouseX, mouseY, 20, 20);
   }
+  
+  // draw the pattern
+  pushMatrix();
+    translate(width/2,height/2);
+    rotate(frameCount/70.2);
+    //scale(2.5);
+    scale(12);
+    translate(-drawBuffer.width/2,-drawBuffer.height/2);
+    drawBuffer.beginDraw();
+    drawBuffer.background(0);
+    rgb.draw(drawBuffer);
+    drawBuffer.endDraw();
+    image(drawBuffer, 0,0);
+  popMatrix();
 
   // render the output of the fixtures to LEDscape
   outputFrame.beginDraw();
@@ -47,8 +79,10 @@ void draw() {
   outputFrame.loadPixels();
   loadPixels();
   
+  
+  
   // In fixture design mode, if a fixture is selected, only draw that fixture
-  if(g_selectedFixture != null) {
+  if(g_selectedFixture != null && g_selectedTab == FIXTURES_TAB) {
     updatePixels();
     background(0,0,255);  // TODO: signal to the fixture that it should be white only?
     loadPixels();
@@ -57,6 +91,9 @@ void draw() {
         f.render(outputFrame);
       }
     }
+    updatePixels();
+    background(0);
+    loadPixels();
     
   }
   
@@ -80,6 +117,7 @@ void draw() {
     );
   image(outputFrame, width - outputFrame.width - 10, height - outputFrame.height - 10);
   
+  sign.sendData(outputFrame);
   
   // draw the fixtures on the screen
   if(g_selectedTab == FIXTURES_TAB) {
@@ -107,7 +145,7 @@ void mousePressed() {
       return;
     }
   }
-  g_selectedFixture = null;
+  //g_selectedFixture = null;
 }
 
 void mouseDragged() {

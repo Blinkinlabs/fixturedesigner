@@ -172,3 +172,14 @@ void fixtureOffset(int offset) {
     led.m_offset = offset;
   }
 }
+
+void fixtureLength(int len) {
+  if(g_selectedFixture == null) {
+    return;
+  }
+  
+  if(g_selectedFixture instanceof LedStrip) {
+    LedStrip led = (LedStrip)g_selectedFixture;
+    led.m_length = len;
+  }
+}
