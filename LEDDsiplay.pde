@@ -169,12 +169,9 @@ public class LEDDisplay {
             b = (int)(Math.pow(b/256.0,this.gammaValue)*256);
           }
 
-//          buffer[(getAddress(x, y)*3)+3] = byte(r);
-//          buffer[(getAddress(x, y)*3)+1] = byte(g);
-//          buffer[(getAddress(x, y)*3)+2] = byte(b);
-          buffer[(offset*3)+1] = byte(r);
-          buffer[(offset*3)+2] = byte(g);
-          buffer[(offset*3)+3] = byte(b);
+          buffer[(offset*3)+1] = byte(max(0,r-4));
+          buffer[(offset*3)+2] = byte(max(0,g-4));
+          buffer[(offset*3)+3] = byte(max(0,b-4));
       }
       udp.send(buffer, address, port);
     }

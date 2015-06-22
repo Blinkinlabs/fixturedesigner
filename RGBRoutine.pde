@@ -1,7 +1,7 @@
 class Routine {
   public boolean isDone = false;
   
-  void reset() {}
+  void setup() {}
   void draw(PGraphics frame) {}
 }
 
@@ -10,7 +10,7 @@ class RGBRoutine extends Routine {
   int color_angle = 0;
   
   void draw(PGraphics frame) {
-    background(0);
+    frame.background(0);
   
     for (int row = 0; row < frame.height; row++) {
       for (int col = 0; col < frame.width; col++) {
@@ -26,6 +26,7 @@ class RGBRoutine extends Routine {
     color_angle = (color_angle+1);//%255;
   }
 }
+
 
 class ColorDrop extends Routine {
   void draw(PGraphics frame) {
@@ -71,6 +72,7 @@ class ColorDrop extends Routine {
 
 }
 
+
 class Bursts extends Routine {
   int NUMBER_OF_BURSTS = 300;
   Burst[] bursts;
@@ -80,10 +82,6 @@ class Bursts extends Routine {
     for (int i = 0; i<NUMBER_OF_BURSTS; i++) {
       bursts[i] = new Burst();
     }
-  }
-
-  void reset() {
-    setup();
   }
   
   void draw(PGraphics frame)
@@ -116,7 +114,7 @@ class Burst {
     init();
   }
 
-  public void reset()
+  public void setup()
   {
     r = random(128)+128;
     g = random(128)+128;
@@ -140,7 +138,7 @@ class Burst {
 
   public void init()
   {
-    reset();
+    setup();
   }
   
   public void draw_ellipse(PGraphics frame, float x, float y, float widt, float heigh, color c) {
@@ -181,32 +179,63 @@ class Burst {
     y +=yv*(displayHeight - y/3)/displayHeight;
 
     if (intensity <= 0) {
-      reset();
+      setup();
     }
   }
 }
 
 class RainbowColors extends Routine {
   void draw(PGraphics frame) {
-    long f = frameCount;
-  
-  //  print(mouseY*255.0/displayHeight);
-  //  print(" ");
+    frame.colorMode(HSB, 100);
     
-    colorMode(HSB, 100);
-    
-    for(int x = 0; x < displayWidth; x++) {
-      for(int y = 0; y < displayHeight; y++) {
-        if (x < displayWidth/2) {
-          stroke((pow(x,0.3)*pow(y,.8)+frame)%100,90*random(.2,1.8),90*random(.5,1.5));
+    for(int x = 0; x < frame.width; x++) {
+      for(int y = 0; y < frame.height; y++) {
+        if (x < frame.width/2) {
+          frame.stroke((pow(x,0.3)*pow(y,.8)+frameCount)%100,90*random(.2,1.8),90*random(.5,1.5));
         }
         else {
-          stroke((pow(displayWidth-x,0.3)*pow(y,.8)+frame)%100,90*random(.2,1.8),90*random(.5,1.5));
+          frame.stroke((pow(frame.width-x,0.3)*pow(y,.8)+frameCount)%100,90*random(.2,1.8),90*random(.5,1.5));
         }
-        point((x+frameCount)%displayWidth,y);
+        frame.point((x+frameCount)%frame.width,y);
       }
     }
     
-    colorMode(RGB, 255);
+    frame.colorMode(RGB, 255);
+  }
+}
+
+
+import com.onformative.screencapturer.*;
+class ScreenGrabber extends Routine {
+
+  ScreenCapturer m_capturer;
+  
+  void setup() {
+    m_capturer = new ScreenCapturer(output_cols, output_rows,200,200,30);
+  }
+  
+  void draw(PGraphics frame) {
+    frame.image(m_capturer.getImage(), 0, 0);
+  }
+}
+
+
+import codeanticode.syphon.*;
+class SyphonGrabber extends Routine {
+
+  SyphonClient m_client;
+  PImage m_img;
+
+  void setup() {
+    m_client = new SyphonClient(fixturedesigner.this);
+  }
+  
+  void draw(PGraphics frame) {
+    if (m_client.available())  {
+      m_img = null;
+      m_img = m_client.getImage(m_img, true);
+      
+      frame.image(m_img, 0, 0,output_cols,output_rows);
+    }
   }
 }

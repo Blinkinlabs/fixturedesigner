@@ -8,12 +8,14 @@ int transmit_port       = 9999;
 
 LEDDisplay sign;
 
-Routine rgb;
+Routine routine;
 
 int LEDscape_rows = 32;
 int LEDscape_cols = 256;
 PGraphics drawBuffer;
 
+int output_rows = 400;
+int output_cols = 400;
 PGraphics outputFrame;
 
 ControlP5 cp5;
@@ -28,16 +30,17 @@ Fixture g_selectedFixture;
 boolean mouseDrag = false;
 
 void setup() {
-  size(1000, 500);
+  size(1000, 500, P3D);
   cp5 = new ControlP5(this);
   
-  sign = new LEDDisplay(this, LEDscape_cols, LEDscape_rows, 2, true, transmit_address, transmit_port);
-       
-  //drawBuffer = createGraphics(1000, 500);
-  drawBuffer = createGraphics(70, 70);
-  rgb = new RGBRoutine();
-  rgb.reset();
-       
+  sign = new LEDDisplay(this, LEDscape_cols, LEDscape_rows, 2, true, transmit_address, transmit_port); 
+  sign.setEnableGammaCorrection(true);
+  
+  drawBuffer = createGraphics(output_rows, output_cols);
+  
+  routine = new SyphonGrabber();
+  routine.setup();
+  
   setupFixtureTab();
   
   cp5.getTab("default")
@@ -55,21 +58,20 @@ void draw() {
   background(0,0,0);
   stroke(255);
   fill(255);
-  if(g_selectedTab == PATTERNS_TAB) {
-    ellipse(mouseX, mouseY, 20, 20);
-  }
   
   // draw the pattern
+  background(40);
+  drawBuffer.beginDraw();
+  drawBuffer.background(0);
+  routine.draw(drawBuffer);    
+  drawBuffer.endDraw();
+  
   pushMatrix();
     translate(width/2,height/2);
-    rotate(frameCount/70.2);
-    //scale(2.5);
-    scale(12);
+    translate(-100,0);  // account for the configuration menu
+    //rotate(frameCount/70.2);
+    //scale(4);
     translate(-drawBuffer.width/2,-drawBuffer.height/2);
-    drawBuffer.beginDraw();
-    drawBuffer.background(0);
-    rgb.draw(drawBuffer);
-    drawBuffer.endDraw();
     image(drawBuffer, 0,0);
   popMatrix();
 
@@ -78,8 +80,6 @@ void draw() {
   outputFrame.background(0);
   outputFrame.loadPixels();
   loadPixels();
-  
-  
   
   // In fixture design mode, if a fixture is selected, only draw that fixture
   if(g_selectedFixture != null && g_selectedTab == FIXTURES_TAB) {
@@ -130,6 +130,10 @@ void draw() {
 void controlEvent(ControlEvent theControlEvent) {
   if (theControlEvent.isTab()) {
     g_selectedTab = theControlEvent.getTab().getId();
+    
+    if(g_selectedTab != FIXTURES_TAB) {
+      g_selectedFixture = null;
+    }
   }
 }
 

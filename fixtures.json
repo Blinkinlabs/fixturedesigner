@@ -1,12 +1,12 @@
 [
   {
-    "length": 118,
+    "length": 115,
     "y1": 448,
     "y2": 51,
     "offset": 2,
     "x2": 34,
     "type": "ledStrip",
-    "row": 25,
+    "row": 9,
     "x1": 251
   },
   {
@@ -16,7 +16,7 @@
     "offset": 0,
     "x2": 69,
     "type": "ledStrip",
-    "row": 24,
+    "row": 8,
     "x1": 204
   },
   {
@@ -26,18 +26,18 @@
     "offset": 123,
     "x2": 51,
     "type": "ledStrip",
-    "row": 18,
+    "row": 26,
     "x1": 315
   },
   {
     "length": 121,
-    "y1": 431,
+    "y1": 441,
     "y2": 102,
     "offset": 0,
     "x2": 318,
     "type": "ledStrip",
-    "row": 18,
-    "x1": 645
+    "row": 26,
+    "x1": 481
   },
   {
     "length": 131,
@@ -46,38 +46,38 @@
     "offset": 0,
     "x2": 220,
     "type": "ledStrip",
-    "row": 27,
+    "row": 6,
     "x1": 221
   },
   {
-    "length": 118,
-    "y1": 431,
-    "y2": 64,
-    "offset": 5,
-    "x2": 466,
+    "length": 100,
+    "y1": 366,
+    "y2": 44,
+    "offset": 15,
+    "x2": 397,
     "type": "ledStrip",
-    "row": 17,
-    "x1": 700
+    "row": 25,
+    "x1": 572
   },
   {
-    "length": 123,
-    "y1": 442,
-    "y2": 71,
-    "offset": 0,
-    "x2": 667,
+    "length": 113,
+    "y1": 437,
+    "y2": 63,
+    "offset": 12,
+    "x2": 631,
     "type": "ledStrip",
-    "row": 19,
-    "x1": 636
+    "row": 27,
+    "x1": 527
   },
   {
     "length": 115,
-    "y1": 429,
-    "y2": 67,
+    "y1": 378,
+    "y2": 66,
     "offset": 7,
-    "x2": 759,
+    "x2": 686,
     "type": "ledStrip",
-    "row": 16,
-    "x1": 671
+    "row": 24,
+    "x1": 567
   },
   {
     "length": 136,
@@ -86,7 +86,7 @@
     "offset": 0,
     "x2": 283,
     "type": "ledStrip",
-    "row": 26,
+    "row": 7,
     "x1": 208
   }
 ]
